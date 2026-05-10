@@ -24,10 +24,12 @@
 .loadingText {
   margin-top: 12px;
   color: #ffd37b;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-family: var(--font-heading), serif;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 14px;
+  text-shadow: 0 0 18px rgba(255, 211, 123, 0.45);
 }
 
 @keyframes loaderEnter {

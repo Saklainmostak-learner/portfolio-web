@@ -1,40 +1,30 @@
 "use client";
 
-import PreLoader from "@/components/PreLoader";
 import { useEffect, useState } from "react";
+import PreLoader from "@/components/PreLoader";
+
+import PortfolioMap from "@/components/PortfolioMap";
+import GameWelcome from "@/components/Welcome";
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
-    const loaderTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowLoader(false);
-    }, 1800);
+    }, 1400);
 
-    return () => clearTimeout(loaderTimer);
+    return () => clearTimeout(timer);
   }, []);
-  return (
-    <main>
-      {showLoader ? (
-        <PreLoader />
-      ) : (
-        <section
-          style={{
-            minHeight: "100vh",
-            display: "grid",
-            placeItems: "center",
-            background: "#070b13",
-            color: "white",
-            textAlign: "center",
-            padding: "30px",
-          }}
-        >
-          <div>
-            <h1>Intro Finished </h1>
-            <p>interactive map </p>
-          </div>
-        </section>
-      )}
-    </main>
-  );
+
+  if (showLoader) {
+    return <PreLoader />;
+  }
+
+  if (showWelcome) {
+    return <GameWelcome onStart={() => setShowWelcome(false)} />;
+  }
+
+  return <PortfolioMap />;
 }
