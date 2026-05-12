@@ -1,7 +1,8 @@
 .page {
-  min-height: 100vh;
+  min-height: 100svh;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background:
     radial-gradient(circle at 50% 0%, rgba(39, 70, 122, 0.55), transparent 38%),
     linear-gradient(180deg, #081326 0%, #03060d 100%);
@@ -18,79 +19,61 @@
 
 .animatedBg span {
   position: absolute;
-  width: 7px;
-  height: 7px;
+  width: clamp(4px, 0.55vw, 7px);
+  height: clamp(4px, 0.55vw, 7px);
   border-radius: 50%;
   background: #ffd37b;
-  box-shadow: 0 0 18px #ffd37b;
+  box-shadow:
+    0 0 12px #ffd37b,
+    0 0 28px rgba(255, 211, 123, 0.55);
   opacity: 0.55;
   animation: floatParticle 7s ease-in-out infinite;
 }
 
-.animatedBg span:nth-child(1) {
-  left: 10%;
-  top: 70%;
-}
-
-.animatedBg span:nth-child(2) {
-  left: 24%;
-  top: 32%;
-  animation-delay: 1s;
-}
-
-.animatedBg span:nth-child(3) {
-  left: 62%;
-  top: 24%;
-  animation-delay: 2s;
-}
-
-.animatedBg span:nth-child(4) {
-  left: 78%;
-  top: 66%;
-  animation-delay: 3s;
-}
-
-.animatedBg span:nth-child(5) {
-  left: 92%;
-  top: 42%;
-  animation-delay: 4s;
-}
-
-.animatedBg span:nth-child(6) {
-  left: 42%;
-  top: 82%;
-  animation-delay: 5s;
-}
-
-/* Map Screen */
+.animatedBg span:nth-child(1) { left: 10%; top: 70%; }
+.animatedBg span:nth-child(2) { left: 24%; top: 32%; animation-delay: 1s; }
+.animatedBg span:nth-child(3) { left: 62%; top: 24%; animation-delay: 2s; }
+.animatedBg span:nth-child(4) { left: 78%; top: 66%; animation-delay: 3s; }
+.animatedBg span:nth-child(5) { left: 92%; top: 42%; animation-delay: 4s; }
+.animatedBg span:nth-child(6) { left: 42%; top: 82%; animation-delay: 5s; }
 
 .mapScreen {
   position: relative;
   z-index: 2;
-  min-height: 100vh;
-  padding: 46px 20px;
+  min-height: 100svh;
+  padding: clamp(28px, 5vw, 56px) clamp(12px, 3vw, 24px);
 }
 
 .mapHeader {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: clamp(18px, 3vw, 28px);
 }
 
 .mapHeader p,
-.smallLabel {
+.sectionKicker {
   margin: 0 0 10px;
   color: #ffd37b;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 12px;
+  letter-spacing: clamp(0.12em, 0.8vw, 0.18em);
+  font-size: clamp(10px, 1.2vw, 12px);
   font-weight: 900;
 }
 
 .mapHeader h1 {
   margin: 0;
-  font-size: clamp(38px, 6vw, 82px);
+  font-size: clamp(32px, 7vw, 82px);
   color: #fff0cf;
+  line-height: 0.95;
   text-shadow: 0 0 40px rgba(255, 211, 123, 0.16);
+}
+
+.mapViewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 0 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 211, 123, 0.45) rgba(255, 255, 255, 0.08);
 }
 
 .mapBox {
@@ -98,7 +81,7 @@
   aspect-ratio: 3 / 2;
   margin: 0 auto;
   position: relative;
-  border-radius: 28px;
+  border-radius: clamp(18px, 3vw, 28px);
   overflow: hidden;
   border: 1px solid rgba(255, 211, 123, 0.28);
   box-shadow:
@@ -107,18 +90,14 @@
   background: #0b0f18;
 }
 
-.mapImage {
-  object-fit: contain;
-}
-
-/* Map Icons: no box, only glow marker */
+.mapImage { object-fit: contain; }
 
 .hotspot {
   position: absolute;
   z-index: 5;
   transform: translate(-50%, -50%);
-  width: 72px;
-  height: 72px;
+  width: clamp(48px, 6.2vw, 72px);
+  height: clamp(48px, 6.2vw, 72px);
   border: 0;
   border-radius: 50%;
   background: transparent;
@@ -126,9 +105,9 @@
   place-items: center;
   cursor: pointer;
   box-shadow: none;
-  transition:
-    transform 0.22s ease,
-    filter 0.22s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.22s ease, filter 0.22s ease;
   animation: hotspotPulse 2.4s ease-in-out infinite;
 }
 
@@ -138,12 +117,7 @@
   inset: 5px;
   border-radius: 50%;
   background:
-    radial-gradient(
-      circle,
-      rgba(255, 219, 146, 0.28),
-      rgba(255, 219, 146, 0.06) 48%,
-      transparent 72%
-    );
+    radial-gradient(circle, rgba(255, 219, 146, 0.28), rgba(255, 219, 146, 0.06) 48%, transparent 72%);
   filter: blur(2px);
   opacity: 0.85;
   transform: scale(0.96);
@@ -164,10 +138,10 @@
 .hotspot img {
   position: relative;
   z-index: 2;
-  width: 62px;
-  height: 62px;
+  width: clamp(38px, 5.3vw, 62px);
+  height: clamp(38px, 5.3vw, 62px);
   object-fit: contain;
-  border-radius: 16px;
+  border-radius: clamp(10px, 1.5vw, 16px);
   filter:
     drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5))
     drop-shadow(0 0 10px rgba(255, 197, 92, 0.2));
@@ -178,53 +152,39 @@
   filter: drop-shadow(0 0 16px rgba(255, 203, 105, 0.75));
 }
 
-.hotspot:hover::before {
-  opacity: 1;
-  transform: scale(1.22);
-  background:
-    radial-gradient(
-      circle,
-      rgba(255, 219, 146, 0.45),
-      rgba(255, 219, 146, 0.1) 52%,
-      transparent 76%
-    );
-}
-
-.hotspot:hover::after {
-  opacity: 1;
-  border-color: rgba(255, 226, 162, 0.68);
-}
-
 .mapHint {
   text-align: center;
-  margin-top: 24px;
+  margin: clamp(16px, 2.4vw, 24px) auto 0;
+  max-width: 620px;
   color: rgba(255, 255, 255, 0.68);
   font-weight: 700;
+  font-size: clamp(13px, 1.8vw, 16px);
+  line-height: 1.5;
 }
-
-/* Preview Modal */
 
 .previewOverlay {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 200;
   display: grid;
   place-items: center;
   background: rgba(0, 0, 0, 0.58);
   backdrop-filter: blur(8px);
-  padding: 24px;
+  padding: clamp(18px, 5vw, 32px);
   animation: fadeIn 0.25s ease;
+  overflow-y: auto;
 }
 
 .previewCard {
   position: relative;
-  width: min(370px, 92vw);
-  min-height: 590px;
-  border-radius: 24px;
+  width: min(390px, 92vw);
+  max-height: calc(100svh - 72px);
+  border-radius: clamp(18px, 4vw, 24px);
   background: #111827;
   border: 1px solid rgba(255, 211, 123, 0.3);
   box-shadow: 0 35px 100px rgba(0, 0, 0, 0.55);
   animation: cardPop 0.35s ease both;
+  overflow: hidden;
 }
 
 .closeBtn {
@@ -232,8 +192,8 @@
   right: 14px;
   top: 14px;
   z-index: 8;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(0, 0, 0, 0.45);
@@ -245,10 +205,10 @@
 .previewTab {
   position: absolute;
   left: 50%;
-  top: -54px;
+  top: -50px;
   transform: translateX(-50%);
-  height: 58px;
-  min-width: 190px;
+  height: 54px;
+  min-width: min(190px, 70vw);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,26 +219,18 @@
   background: #fff2e4;
   color: #25170c;
   font-weight: 1000;
-  font-size: 22px;
+  font-size: clamp(18px, 4.5vw, 22px);
   z-index: 5;
-}
-
-.previewTab img {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
 }
 
 .previewHero {
   position: relative;
-  height: 370px;
+  height: clamp(250px, 48svh, 370px);
   overflow: hidden;
-  border-radius: 24px 24px 0 0;
+  border-radius: clamp(18px, 4vw, 24px) clamp(18px, 4vw, 24px) 0 0;
 }
 
-.previewBg {
-  object-fit: cover;
-}
+.previewBg { object-fit: cover; }
 
 .previewShade {
   position: absolute;
@@ -296,24 +248,27 @@
   place-items: start center;
   align-content: start;
   text-align: center;
-  padding-top: 34px;
+  padding: clamp(24px, 5vw, 34px) 18px 0;
 }
 
 .previewHeroContent h2 {
   margin: 0 0 8px;
-  font-size: 36px;
+  font-size: clamp(28px, 7vw, 36px);
   color: #fff;
+  line-height: 1.05;
 }
 
 .previewHeroContent p {
   margin: 0;
   color: rgba(255, 255, 255, 0.82);
   font-weight: 800;
+  font-size: clamp(14px, 3vw, 16px);
 }
 
 .previewContent {
-  padding: 22px;
+  padding: clamp(16px, 4vw, 22px);
   text-align: center;
+  overflow-y: auto;
 }
 
 .avatarLine {
@@ -322,7 +277,7 @@
   gap: 14px;
   align-items: center;
   text-align: left;
-  padding: 14px;
+  padding: clamp(12px, 3vw, 14px);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -330,6 +285,8 @@
 
 .avatar {
   border-radius: 50%;
+  width: clamp(48px, 12vw, 58px);
+  height: clamp(48px, 12vw, 58px);
 }
 
 .avatarLine p {
@@ -337,10 +294,16 @@
   color: rgba(255, 255, 255, 0.78);
   line-height: 1.5;
   font-weight: 700;
+  font-size: clamp(13px, 3.2vw, 15px);
 }
 
-.exploreBtn {
-  margin-top: 24px;
+.exploreBtn,
+.homeActions button,
+.homeActions a,
+.resumeButton,
+.profileLinks a,
+.projectLinks a,
+.contactForm button {
   border: 0;
   border-radius: 999px;
   padding: 13px 22px;
@@ -349,17 +312,17 @@
   font-weight: 1000;
   box-shadow: 0 6px 0 #8b4d10;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-
-/* Detail Page */
 
 .detailScreen {
   position: relative;
   z-index: 2;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 46px 20px;
+  min-height: 100svh;
+  padding: clamp(76px, 8vw, 92px) clamp(14px, 4vw, 24px) clamp(28px, 5vw, 46px);
   overflow: hidden;
 }
 
@@ -381,9 +344,11 @@
 .detailContent {
   position: relative;
   z-index: 2;
-  width: min(900px, 94vw);
-  padding: clamp(28px, 5vw, 58px);
-  border-radius: 34px;
+  width: min(1180px, 94vw);
+  max-height: calc(100svh - 120px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 58px);
+  border-radius: clamp(22px, 4vw, 34px);
   background: rgba(7, 13, 24, 0.72);
   border: 1px solid rgba(255, 211, 123, 0.28);
   box-shadow:
@@ -391,38 +356,14 @@
     inset 0 0 60px rgba(255, 211, 123, 0.04);
   backdrop-filter: blur(14px);
   animation: detailEnter 0.55s ease both;
-}
-
-.detailIcon {
-  margin-bottom: 20px;
-  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.35));
-}
-
-.detailContent h1 {
-  margin: 0;
-  font-size: clamp(54px, 8vw, 108px);
-  line-height: 0.92;
-  color: #fff0cf;
-}
-
-.detailContent h2 {
-  margin: 18px 0 18px;
-  color: #ffd37b;
-  font-family: var(--font-body), Arial, sans-serif;
-  font-size: clamp(22px, 3vw, 34px);
-}
-
-.detailContent p {
-  max-width: 720px;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 20px;
-  line-height: 1.75;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 211, 123, 0.55) transparent;
 }
 
 .backButton {
   position: fixed;
-  left: 24px;
-  top: 24px;
+  left: clamp(12px, 3vw, 24px);
+  top: clamp(12px, 3vw, 24px);
   z-index: 5;
   border: 1px solid rgba(255, 211, 123, 0.32);
   background: rgba(8, 14, 25, 0.72);
@@ -434,106 +375,503 @@
   backdrop-filter: blur(12px);
 }
 
-/* Animations */
+.homeGrid,
+.aboutHero,
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 0.78fr;
+  gap: clamp(24px, 5vw, 56px);
+  align-items: center;
+}
+
+.homeText h1,
+.aboutHero h1,
+.skillsIntro h1,
+.sectionIntro h1,
+.contactInfo h1 {
+  margin: 0;
+  font-size: clamp(42px, 8vw, 96px);
+  line-height: 0.95;
+  color: #fff0cf;
+}
+
+.homeText h1 span {
+  color: #ffd37b;
+}
+
+.homeText p,
+.aboutHero p,
+.skillsIntro p,
+.sectionIntro p,
+.contactInfo p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.75;
+}
+
+.homeActions,
+.profileLinks,
+.projectLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.homeAvatarCard,
+.aboutPhoto {
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 211, 123, 0.24);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.42);
+}
+
+.homeAvatar,
+.aboutPhoto {
+  width: min(360px, 74vw);
+  height: auto;
+  object-fit: cover;
+}
+
+.aboutHero {
+  grid-template-columns: 0.52fr 1fr;
+  align-items: center;
+}
+
+.aboutPhoto {
+  width: min(300px, 72vw);
+}
+
+.infoBlock {
+  margin-top: 44px;
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.blockHeader span {
+  color: #271407;
+  background: #ffd37b;
+  font-weight: 1000;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.blockHeader h3 {
+  margin: 0;
+  color: #fff0cf;
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.timeline,
+.certificateGrid,
+.projectGrid {
+  display: grid;
+  gap: 18px;
+}
+
+.timeline {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.certificateGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.timelineItem,
+.certificateCard,
+.projectCard,
+.contactCards a,
+.contactForm {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.timelineItem,
+.certificateCard {
+  padding: 22px;
+}
+
+.timelineItem h4,
+.certificateCard h4,
+.projectCard h3 {
+  margin: 8px 0;
+  color: #fff0cf;
+}
+
+.timelineItem small,
+.certificateCard small,
+.projectBody small {
+  color: #ffd37b;
+  font-weight: 900;
+}
+
+.skillsContent {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+}
+
+.globeStage {
+  min-height: 540px;
+  display: grid;
+  place-items: center;
+  perspective: 1000px;
+}
+
+.skillGlobe {
+  position: relative;
+  width: min(520px, 82vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 211, 123, 0.24), transparent 24%),
+    radial-gradient(circle at center, rgba(57, 93, 166, 0.22), transparent 62%);
+  border: 1px solid rgba(255, 211, 123, 0.2);
+  box-shadow:
+    inset 0 0 90px rgba(255, 211, 123, 0.08),
+    0 0 80px rgba(57, 93, 166, 0.25);
+  animation: globeRotate 16s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.globeCore {
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  background:
+    radial-gradient(circle at 35% 25%, #fff0cf, #d88a20 55%, #7a3f12);
+  color: #271407;
+  font-weight: 1000;
+  box-shadow: 0 0 50px rgba(255, 211, 123, 0.45);
+}
+
+.skillPlanet {
+  --angle: calc(var(--i) * 36deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(58px, 8vw, 76px);
+  height: clamp(58px, 8vw, 76px);
+  margin-left: calc(clamp(58px, 8vw, 76px) / -2);
+  margin-top: calc(clamp(58px, 8vw, 76px) / -2);
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 24px;
+  background: rgba(8, 14, 25, 0.78);
+  border: 1px solid rgba(255, 211, 123, 0.28);
+  transform:
+    rotate(var(--angle))
+    translateX(clamp(150px, 28vw, 230px))
+    rotate(calc(var(--angle) * -1));
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+}
+
+.skillPlanet::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  color: #271407;
+  background: #fff2d2;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 1000;
+  transition: 0.2s ease;
+}
+
+.skillPlanet:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.skillIcon {
+  font-size: 25px;
+}
+
+.skillPlanet small {
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.projectGrid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 28px;
+}
+
+.projectCard {
+  overflow: hidden;
+}
+
+.projectImage {
+  position: relative;
+  height: 210px;
+}
+
+.projectImage img {
+  object-fit: cover;
+}
+
+.projectBody {
+  padding: 22px;
+}
+
+.projectBody p {
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.6;
+}
+
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.techList span {
+  color: #ffd37b;
+  background: rgba(255, 211, 123, 0.1);
+  border: 1px solid rgba(255, 211, 123, 0.18);
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.contactContent {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.contactCards {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.contactCards a {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  color: white;
+  text-decoration: none;
+}
+
+.contactCards span {
+  font-size: 30px;
+}
+
+.contactCards small {
+  color: #ffd37b;
+  font-weight: 900;
+}
+
+.contactForm {
+  padding: clamp(20px, 4vw, 32px);
+  display: grid;
+  gap: 18px;
+}
+
+.contactForm label {
+  display: grid;
+  gap: 8px;
+  color: #ffd37b;
+  font-weight: 900;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 211, 123, 0.2);
+  border-radius: 16px;
+  padding: 14px 16px;
+  color: white;
+  background: rgba(0, 0, 0, 0.28);
+  outline: none;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  border-color: rgba(255, 211, 123, 0.7);
+  box-shadow: 0 0 0 4px rgba(255, 211, 123, 0.1);
+}
 
 @keyframes floatParticle {
-  50% {
-    transform: translate(30px, -42px) scale(1.35);
-    opacity: 0.25;
-  }
+  50% { transform: translate(30px, -42px) scale(1.35); opacity: 0.25; }
 }
 
 @keyframes hotspotPulse {
-  50% {
-    transform: translate(-50%, -50%) scale(1.045);
-  }
+  50% { transform: translate(-50%, -50%) scale(1.045); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes cardPop {
-  from {
-    opacity: 0;
-    transform: translateY(32px) scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(32px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes detailEnter {
-  from {
-    opacity: 0;
-    transform: translateY(36px) scale(0.96);
-    filter: blur(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
+  from { opacity: 0; transform: translateY(36px) scale(0.96); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
 @keyframes slowZoom {
-  from {
-    transform: scale(1);
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@keyframes globeRotate {
+  from { transform: rotateY(0deg) rotateX(7deg); }
+  to { transform: rotateY(360deg) rotateX(7deg); }
+}
+
+@media (max-width: 1100px) {
+  .projectGrid,
+  .certificateGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  to {
-    transform: scale(1.08);
+  .skillsContent,
+  .homeGrid,
+  .contactContent {
+    grid-template-columns: 1fr;
+  }
+
+  .skillsIntro,
+  .sectionIntro,
+  .contactInfo {
+    text-align: center;
   }
 }
 
-/* Mobile */
+@media (max-width: 767px) {
+  .mapScreen { min-height: 100svh; padding: 30px 10px 22px; }
+  .mapHeader { margin-bottom: 18px; }
+  .mapHeader p { font-size: 10px; }
+  .mapHeader h1 { font-size: clamp(30px, 10vw, 44px); }
 
-@media (max-width: 850px) {
-  .mapScreen {
-    padding: 34px 12px;
+  .mapViewport {
+    width: calc(100vw - 20px);
+    margin: 0 auto;
+    border-radius: 18px;
   }
 
   .mapBox {
-    width: 96vw;
-    height: 540px;
-    aspect-ratio: auto;
+    width: 720px;
+    max-width: none;
+    aspect-ratio: 3 / 2;
+    border-radius: 18px;
   }
 
-  .hotspot {
-    width: 54px;
-    height: 54px;
-  }
-
+  .hotspot { width: 54px; height: 54px; }
   .hotspotIcon,
-  .hotspot img {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+  .hotspot img { width: 44px; height: 44px; border-radius: 12px; }
+
+  .mapHint { max-width: 320px; font-size: 12px; margin-top: 12px; }
+
+  .previewOverlay { align-items: end; padding: 64px 12px 14px; }
+  .previewCard { width: 100%; max-height: calc(100svh - 88px); border-radius: 20px; }
+  .previewTab { top: -46px; height: 48px; min-width: 160px; }
+  .previewTab img { width: 28px; height: 28px; }
+  .previewHero { height: min(300px, 42svh); }
+  .avatarLine { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+
+  .detailScreen { padding: 72px 12px 14px; }
+  .detailContent { width: 100%; max-height: calc(100svh - 94px); border-radius: 22px; }
+
+  .homeGrid,
+  .aboutHero,
+  .contactContent {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  .previewCard {
-    width: min(350px, 92vw);
-    min-height: 560px;
+  .homeActions,
+  .profileLinks,
+  .projectLinks {
+    justify-content: center;
   }
 
-  .previewHero {
-    height: 330px;
+  .timeline,
+  .certificateGrid,
+  .projectGrid {
+    grid-template-columns: 1fr;
   }
 
-  .detailContent {
-    width: 94vw;
+  .skillsContent {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  .detailContent h1 {
-    font-size: clamp(44px, 13vw, 72px);
+  .globeStage {
+    min-height: 420px;
+    overflow: hidden;
+  }
+
+  .skillGlobe {
+    width: min(390px, 92vw);
+  }
+
+  .skillPlanet {
+    transform:
+      rotate(var(--angle))
+      translateX(clamp(105px, 31vw, 155px))
+      rotate(calc(var(--angle) * -1));
+  }
+
+  .backButton { padding: 10px 14px; font-size: 13px; }
+}
+
+@media (max-width: 430px) {
+  .mapBox { width: 660px; }
+}
+
+@media (max-width: 380px) {
+  .mapHeader h1 { font-size: 28px; }
+  .mapBox { width: 620px; }
+  .hotspot { width: 48px; height: 48px; }
+  .hotspotIcon,
+  .hotspot img { width: 38px; height: 38px; }
+  .previewHero { height: 235px; }
+  .previewHeroContent h2 { font-size: 25px; }
+  .detailContent h1 { font-size: 38px; }
+}
+
+@media (hover: none) {
+  .hotspot:hover { transform: translate(-50%, -50%); filter: none; }
+  .hotspot:active { transform: translate(-50%, -50%) scale(0.94); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animatedBg span,
+  .hotspot,
+  .detailBg,
+  .previewCard,
+  .detailContent,
+  .skillGlobe {
+    animation: none;
   }
 }
